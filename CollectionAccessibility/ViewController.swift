@@ -36,7 +36,7 @@ class ViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        collectionView.scrollToItem(at: IndexPath(item: 50, section: 0), at: .centeredHorizontally, animated: false)
+        collectionView.scrollToItem(at: IndexPath(item: 49, section: 0), at: .centeredHorizontally, animated: false)
     }
 }
 
@@ -47,12 +47,20 @@ extension ViewController: UICollectionViewDataSource, UICollectionViewDelegateFl
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        100
+        50
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath) as! Cell
         cell.label.text = "Index \(indexPath.item)"
+        if indexPath.item == 0 {
+            cell.contentView.backgroundColor = .red
+        } else if indexPath.item < collectionView.numberOfItems(inSection: 0) - 1 {
+            cell.contentView.backgroundColor = .blue
+        } else {
+            cell.contentView.backgroundColor = .green
+        }
+        
         print("Dequeuing cell at index \(indexPath)")
         return cell
     }
